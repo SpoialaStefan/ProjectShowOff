@@ -1,18 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class CameraBehavior : MonoBehaviour
+using Mirror;
+public class CameraBehavior : NetworkBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField]
+    private Transform _cameraObject;
 
-    // Update is called once per frame
-    void Update()
+    public override void OnStartAuthority()
     {
-        
+        base.OnStartAuthority();
+        _cameraObject.gameObject.SetActive(true);
     }
 }

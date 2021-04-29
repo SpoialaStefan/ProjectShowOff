@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class PlayerMotor : MonoBehaviour
+public class PlayerMotor : NetworkBehaviour
 {
     [Tooltip("Mouse Sensitivity for rotation")]
     [SerializeField]
@@ -24,12 +25,13 @@ public class PlayerMotor : MonoBehaviour
     void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
-        Cursor.lockState = CursorLockMode.Locked;
+       // Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
+        if(base.hasAuthority)
         Move();
     }
 
