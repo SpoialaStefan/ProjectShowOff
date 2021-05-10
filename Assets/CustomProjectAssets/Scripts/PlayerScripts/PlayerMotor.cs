@@ -25,10 +25,12 @@ public class PlayerMotor : NetworkBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        rb.isKinematic = base.hasAuthority;
-       // Cursor.lockState = CursorLockMode.Locked;
+        // Cursor.lockState = CursorLockMode.Locked;
     }
-
+    private void Start()
+    {
+        rb.isKinematic = !base.hasAuthority;
+    }
     // Update is called once per frame
     void Update()
     {
