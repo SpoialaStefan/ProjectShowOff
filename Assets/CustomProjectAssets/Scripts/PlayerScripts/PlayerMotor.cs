@@ -19,12 +19,13 @@ public class PlayerMotor : NetworkBehaviour
     private Transform model;
 
 
-    private Rigidbody rigidbody;
+    private Rigidbody rb;
 
     // Start is called before the first frame update
     void Awake()
     {
-        rigidbody = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
+        rb.isKinematic = base.hasAuthority;
        // Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -45,9 +46,9 @@ public class PlayerMotor : NetworkBehaviour
 
     private void MoveUpDown()
     {
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetKey(KeyCode.Space))
         {
-            rigidbody.AddRelativeForce(Vector3.up * UpForce);
+            rb.AddRelativeForce(Vector3.up * UpForce);
         }
     }
 
@@ -55,7 +56,7 @@ public class PlayerMotor : NetworkBehaviour
     {
         if (Input.GetAxis("Vertical")!=0)
         {
-            rigidbody.AddRelativeForce(Vector3.forward * ForwardSpeed * Input.GetAxis("Vertical"));
+            rb.AddRelativeForce(Vector3.forward * ForwardSpeed * Input.GetAxis("Vertical"));
         }
     }
 
@@ -71,7 +72,7 @@ public class PlayerMotor : NetworkBehaviour
     {
         if (Mathf.Abs(Input.GetAxis("Horizontal")) > 0.2f)
         {
-            rigidbody.AddRelativeForce(Vector3.right * Input.GetAxis("Horizontal") * SideMovement);
+            rb.AddRelativeForce(Vector3.right * Input.GetAxis("Horizontal") * SideMovement);
             tiltAmountSidewayes = Mathf.SmoothDamp(tiltAmountSidewayes, -20 * Input.GetAxis("Horizontal"), ref tiltAmountVelocity, 0.1f);
         }
         else

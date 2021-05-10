@@ -12,10 +12,8 @@ using System.Collections.Generic;
 public class CustomNetworkManager : NetworkManager
 {
 
-    #region Public
-    public static Dictionary<NetworkConnection, NetworkIdentity> LocalPlayers = new Dictionary<NetworkConnection, NetworkIdentity>();
-    #endregion
-
+    [SerializeField] private string lobbyScene = string.Empty;
+    [SerializeField] private NetworkPlayerLobby lobbyPlayerPrefab;
 
     #region Unity Callbacks
 
@@ -134,7 +132,10 @@ public class CustomNetworkManager : NetworkManager
     /// <para>Unity calls this on the Server when a Client connects to the Server. Use an override to tell the NetworkManager what to do when a client connects to the server.</para>
     /// </summary>
     /// <param name="conn">Connection from client.</param>
-    public override void OnServerConnect(NetworkConnection conn) { }
+    public override void OnServerConnect(NetworkConnection conn)
+    {
+        base.OnServerConnect(conn);
+    }
 
     /// <summary>
     /// Called on the server when a client is ready.
@@ -153,17 +154,17 @@ public class CustomNetworkManager : NetworkManager
     /// <param name="conn">Connection from client.</param>
     public override void OnServerAddPlayer(NetworkConnection conn)
     {
-        Transform startPos = GetStartPosition();
-        GameObject player = startPos != null
-            ? Instantiate(playerPrefab, startPos.position, startPos.rotation)
-            : Instantiate(playerPrefab);
-
-        // instantiating a "Player" prefab gives it the name "Player(clone)"
-        // => appending the connectionId is WAY more useful for debugging!
-        player.name = $"{playerPrefab.name} [connId={conn.connectionId}]";
-
-        LocalPlayers[conn] = player.GetComponent<NetworkIdentity>();
-        NetworkServer.AddPlayerForConnection(conn, player);
+        //base.OnServerAddPlayer(conn);
+        if (SceneManager.GetActiveScene().name == lobbyScene)
+        {
+            Debug.Log("Make Player, Scene Right");
+            NetworkPlayerLobby lobbyPlayerInstance = Instantiate(lobbyPlayerPrefab,transform.position, Quaternion.identity);
+            NetworkServer.AddPlayerForConnection(conn, lobbyPlayerInstance.gameObject);
+        }
+        else
+        {
+            Debug.Log("Do NOT Make Player, Scene Wrong "+ SceneManager.GetActiveScene().name+" "+ lobbyScene);
+        }
     }
 
     /// <summary>
@@ -173,7 +174,6 @@ public class CustomNetworkManager : NetworkManager
     /// <param name="conn">Connection from client.</param>
     public override void OnServerDisconnect(NetworkConnection conn)
     {
-        LocalPlayers.Remove(conn);
         base.OnServerDisconnect(conn);
     }
 

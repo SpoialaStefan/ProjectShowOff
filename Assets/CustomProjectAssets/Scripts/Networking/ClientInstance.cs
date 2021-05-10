@@ -29,19 +29,4 @@ public class ClientInstance : NetworkBehaviour
         NetworkServer.Spawn(playerClient, base.connectionToClient);
     }
 
-    public static ClientInstance GetClientInstance(NetworkConnection conn = null)
-    {
-        if (NetworkServer.active && conn != null)
-        {
-            NetworkIdentity localPlayer;
-            if (CustomNetworkManager.LocalPlayers.TryGetValue(conn, out localPlayer))
-                return localPlayer.GetComponent<ClientInstance>();
-            else
-                return null;
-        }
-        else
-        {
-            return Instance;
-        }
-    }
 }
