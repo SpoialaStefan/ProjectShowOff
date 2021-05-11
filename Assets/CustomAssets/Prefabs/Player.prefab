@@ -418,9 +418,10 @@ GameObject:
   - component: {fileID: 589290526315248994}
   - component: {fileID: 1600761866990000962}
   - component: {fileID: 73969371}
+  - component: {fileID: 5892085536614832704}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -452,11 +453,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e8d3521e7d2ff341aa8c7533c900d03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSensitivity: 100
-  UpForce: 50
+  camera: {fileID: 0}
   ForwardSpeed: 4
-  SideMovement: 15
-  model: {fileID: 3249664756939140249}
+  UpSpeed: 3
+  DownSpeed: 1
+  turnSmoothTime: 0.1
 --- !u!143 &73969371
 CharacterController:
   m_ObjectHideFlags: 0
@@ -468,10 +469,23 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 2
-  m_Radius: 1.3
+  m_Height: 1
+  m_Radius: 1
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &5892085536614832704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9207179467135139375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 967eac7243e00f6479746a5a7c987ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nectarAmount: 0

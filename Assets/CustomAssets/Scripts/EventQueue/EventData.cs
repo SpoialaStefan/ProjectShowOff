@@ -6,7 +6,9 @@ public enum EventType
 {
     CLIENTCONNECT,
     CLIENTDISCONNESCT,
-    STARTGAME
+    STARTGAME,
+    NECTARCOLLECTSTART,
+    NECTARCOLLECTEND
 }
 public class EventData 
 {

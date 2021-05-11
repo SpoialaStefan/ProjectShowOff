@@ -4,5 +4,21 @@ using UnityEngine;
 
 public class NectarDistributor : MonoBehaviour
 {
-    public int nectarAmount;
+    [SerializeField]
+    private int nectarAmount;
+
+    private void Start()
+    {
+        EventQueue.eventQueue.Subscribe(EventType.NECTARCOLLECTSTART, OnNectarIsCollected);
+    }
+
+    public void OnNectarIsCollected(EventData eventData)
+    {
+        if (eventData is NectarCollectStartEventData)
+        {
+            EventQueue.eventQueue.AddEvent(new NectarCollectEndEventData(nectarAmount));
+            EventQueue.eventQueue.UnSubscribe(EventType.NECTARCOLLECTSTART, OnNectarIsCollected);
+            Destroy(gameObject);
+        }
+    }
 }
