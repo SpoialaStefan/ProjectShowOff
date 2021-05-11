@@ -14,6 +14,8 @@ public class PlayerMotor : MonoBehaviour
     private float DownSpeed = 1f;
     [SerializeField]
     private float turnSmoothTime = 0.1f;
+    [SerializeField]
+    private bool spamSpaceKey = false;
 
     private float turnSmoothVelocity = 0.1f;
 
@@ -38,11 +40,21 @@ public class PlayerMotor : MonoBehaviour
         Vector3 direction = new Vector3(horizontal, 0, vertical).normalized;
 
 
-
-        if (Input.GetKey(KeyCode.Space))
+        if (spamSpaceKey == false)
         {
-            //directionY += UpSpeed;
-            controller.Move(Vector3.up * UpSpeed * Time.deltaTime);
+            if (Input.GetKey(KeyCode.Space))
+            {
+                //directionY += UpSpeed;
+                controller.Move(Vector3.up * UpSpeed * Time.deltaTime);
+            }
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                //directionY += UpSpeed;
+                controller.Move(Vector3.up * UpSpeed * Time.deltaTime);
+            }
         }
 
         if (!controller.isGrounded)
