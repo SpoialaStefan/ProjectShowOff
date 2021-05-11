@@ -20,12 +20,18 @@ public class NectarCollect : MonoBehaviour
             {
                 EventQueue.eventQueue.AddEvent(new NectarCollectStartEventData());
             }
+
+            if (other.GetComponent<NectarTrunk>() && nectarAmount > 0)
+            {
+                EventQueue.eventQueue.AddEvent(new NectarIsStoredEventData(nectarAmount));
+                resetNectarAmount();
+            }
         }
     }
 
     public void OnNectarIsCollected(EventData eventData)
     {
-        if(eventData is NectarCollectEndEventData)
+        if (eventData is NectarCollectEndEventData)
         {
             NectarCollectEndEventData e = eventData as NectarCollectEndEventData;
             changeNectarAmount(e.nectarAmount);
@@ -35,6 +41,11 @@ public class NectarCollect : MonoBehaviour
     private void changeNectarAmount(int amount)
     {
         nectarAmount += amount;
-        Debug.Log("New nectar amount: "+nectarAmount);
+        Debug.Log("New nectar amount in player: " + nectarAmount);
+    }
+
+    private void resetNectarAmount()
+    {
+        nectarAmount = 0;
     }
 }

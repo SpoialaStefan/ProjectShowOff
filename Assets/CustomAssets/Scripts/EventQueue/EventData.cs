@@ -8,7 +8,8 @@ public enum EventType
     CLIENTDISCONNESCT,
     STARTGAME,
     NECTARCOLLECTSTART,
-    NECTARCOLLECTEND
+    NECTARCOLLECTEND,
+    NECTARSTORED
 }
 public class EventData 
 {
