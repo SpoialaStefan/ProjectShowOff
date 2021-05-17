@@ -28,11 +28,15 @@ public class PlayerMotor : MonoBehaviour
     [Tooltip("Slowd up speed when coliding with particles, while spamming space")]
     [SerializeField]
     private float UpSpeedSpamSlowed = 6f;
-
+    [SerializeField]
+    private int slowedTimer;
+    [SerializeField]
     private float fSpeed;
     private float uSpeed;
     private float turnSmoothVelocity = 0.1f;
 
+    bool slowed = false;
+    private float sTimer;
     private CharacterController controller;
     private float directionY = 0f;
     // Start is called before the first frame update
@@ -41,16 +45,31 @@ public class PlayerMotor : MonoBehaviour
         controller = GetComponent<CharacterController>();
         fSpeed = ForwardSpeed;
         uSpeed = UpSpeed;
+        sTimer = slowedTimer;
     }
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        EventQueue.eventQueue.Subscribe(EventType.PLAYERPESTICIDECOLLISION, OnPlayerColidesWithPesticides);
     }
 
     // Update is called once per frame
     void Update()
     {
         Move();
+        if (slowed)
+        {
+            if (sTimer < 0)
+            {
+                slowed = false;
+                sTimer = slowedTimer;
+                fSpeed = ForwardSpeed;
+            }
+            else
+            {
+                sTimer -= Time.deltaTime;
+            }
+        }
     }
 
     private void Move()
@@ -98,7 +117,7 @@ public class PlayerMotor : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, angle, 0);
 
             Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            controller.Move(moveDirection.normalized * ForwardSpeed * Time.deltaTime);
+            controller.Move(moveDirection.normalized * fSpeed * Time.deltaTime);
         }
     }
 
@@ -108,6 +127,7 @@ public class PlayerMotor : MonoBehaviour
         if (eventData is PlayerPesticideCollisionEventData)
         {
             fSpeed = ForwardSpeedSlowed;
+            slowed = true;
         }
     }
 }

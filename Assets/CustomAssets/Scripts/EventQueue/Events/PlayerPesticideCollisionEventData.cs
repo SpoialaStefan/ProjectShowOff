@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class PlayerPesticideCollisionEventData : EventData
 {
-    PlayerPesticideCollisionEventData() : base(EventType.PLAYERPESTICIDECOLLISION) { }
+    public PlayerPesticideCollisionEventData() : base(EventType.PLAYERPESTICIDECOLLISION) { }
 }
