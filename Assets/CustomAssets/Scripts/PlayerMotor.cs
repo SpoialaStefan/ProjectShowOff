@@ -30,6 +30,7 @@ public class PlayerMotor : MonoBehaviour
     private float UpSpeedSpamSlowed = 6f;
     [SerializeField]
     private int slowedTimer;
+    [Tooltip("Do NOT modify. Exposed parameter for testing purposes ONLY")]
     [SerializeField]
     private float fSpeed;
     private float uSpeed;
