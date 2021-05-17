@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 
-[CreateAssetMenu(fileName = "SprayPesticides", menuName = "ScriptableObjects/SprayPesticides", order = 3)]
+//[CreateAssetMenu(fileName = "SprayPesticides", menuName = "ScriptableObjects/SprayPesticides", order = 3)]
 public class SprayPesticides : BaseState
 {
     [SerializeField]
@@ -14,16 +14,19 @@ public class SprayPesticides : BaseState
     private int walkPoint = -1;
     private bool walkPointSet;
 
+    [SerializeField]
     private NavMeshAgent agent;
     private Transform target;
+    [SerializeField]
     private Transform self;
+    [SerializeField]
     private ParticleSystem particles;
     float timer = 5;
 
 
     public override void UpdateBehavior()
     {
-        throw new System.NotImplementedException();
+        Patroling();
     }
 
 

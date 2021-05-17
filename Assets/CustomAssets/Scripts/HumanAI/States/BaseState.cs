@@ -1,11 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
 
-public abstract class BaseState:ScriptableObject
+using UnityEditor;
+
+#endif
+public abstract class BaseState : MonoBehaviour
 {
     public bool isStateFinished = false;
-    public BaseState() { }
+    public HumanStates state;
     public abstract void UpdateBehavior();
 
 
@@ -14,7 +18,6 @@ public abstract class BaseState:ScriptableObject
     {
         public GameObject pathHolder;
         public float timeToStay = 4;
-
     }
 
 
@@ -28,5 +31,7 @@ public abstract class BaseState:ScriptableObject
     {
         isStateFinished = true;
     }
-    
+
+
+
 }

@@ -9,7 +9,8 @@ public enum EventType
     STARTGAME,
     NECTARCOLLECTSTART,
     NECTARCOLLECTEND,
-    NECTARSTORED
+    NECTARSTORED,
+    CHANGESTATE
 }
 public class EventData 
 {

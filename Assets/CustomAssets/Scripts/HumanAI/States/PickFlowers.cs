@@ -4,25 +4,27 @@ using UnityEngine;
 using UnityEngine.AI;
 
 
-[CreateAssetMenu(fileName = "PickFlowers", menuName = "ScriptableObjects/PickFlowers", order = 2)]
+//[CreateAssetMenu(fileName = "PickFlowers", menuName = "ScriptableObjects/PickFlowers", order = 2)]
 public class PickFlowers : BaseState
 {
     [SerializeField]
-    private List< PathWay> path;
+    private List<PathWay> path;
 
 
     private int walkPoint = -1;
     private bool walkPointSet;
-
+    [SerializeField]
     private NavMeshAgent agent;
     private Transform target;
+    [SerializeField]
     private Transform self;
     float timer = 5;
 
 
     public override void UpdateBehavior()
     {
-        throw new System.NotImplementedException();
+        if (path.Count > 0)
+            Patroling();
     }
 
 
@@ -79,6 +81,8 @@ public class PickFlowers : BaseState
     void pickUpFlower()
     {
         target = null;
+        GameObject f = path[walkPoint].pathHolder;
         path.RemoveAt(walkPoint);
+        Destroy(f);
     }
 }
