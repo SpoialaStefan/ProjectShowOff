@@ -419,6 +419,7 @@ GameObject:
   - component: {fileID: 1600761866990000962}
   - component: {fileID: 73969371}
   - component: {fileID: 5892085536614832704}
+  - component: {fileID: 1460662650}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -453,13 +454,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e8d3521e7d2ff341aa8c7533c900d03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 0}
-  ForwardSpeed: 4
+  cam: {fileID: 0}
+  ForwardSpeed: 5
   UpSpeed: 3
   UpSpeedSpam: 10
   DownSpeed: 1
   turnSmoothTime: 0.1
   spamSpaceKey: 0
+  ForwardSpeedSlowed: 2
+  UpSpeedSlowed: 3
+  UpSpeedSpamSlowed: 6
+  slowedTimer: 4
+  fSpeed: 0
 --- !u!143 &73969371
 CharacterController:
   m_ObjectHideFlags: 0
@@ -491,3 +497,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nectarAmount: 0
+--- !u!114 &1460662650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9207179467135139375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6599e99b53e572d4aa0c8b0c7ae083a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
