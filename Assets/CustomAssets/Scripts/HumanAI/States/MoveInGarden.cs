@@ -22,7 +22,15 @@ public class MoveInGarden : BaseState
     private Transform self;
     float timer = 5;
 
+    private void OnDrawGizmos()
+    {
+        foreach (PathWay waypoint in path)
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawSphere(waypoint.pathHolder.transform.position, .3f);
+        }
 
+    }
     public override void UpdateBehavior()
     {
         Patroling();

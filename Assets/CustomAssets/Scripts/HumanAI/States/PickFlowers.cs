@@ -19,7 +19,15 @@ public class PickFlowers : BaseState
     [SerializeField]
     private Transform self;
     float timer = 5;
+    //private void OnDrawGizmos()
+    //{
+    //    foreach (PathWay waypoint in path)
+    //    {
+    //        Gizmos.color = Color.red;
+    //        Gizmos.DrawSphere(waypoint.pathHolder.transform.position, .5f);
+    //    }
 
+    //}
 
     public override void UpdateBehavior()
     {

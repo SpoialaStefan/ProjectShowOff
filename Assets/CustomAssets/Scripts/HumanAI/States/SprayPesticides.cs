@@ -23,7 +23,15 @@ public class SprayPesticides : BaseState
     private ParticleSystem particles;
     float timer = 5;
 
+    private void OnDrawGizmos()
+    {
+        foreach (PathWay waypoint in path)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawSphere(waypoint.pathHolder.transform.position, .3f);
+        }
 
+    }
     public override void UpdateBehavior()
     {
         Patroling();
