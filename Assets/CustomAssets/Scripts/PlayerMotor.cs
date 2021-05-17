@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMotor : MonoBehaviour
 {
     [SerializeField]
-    private Transform camera;
+    private Transform cam;
     [SerializeField]
     private float ForwardSpeed = 6f;
     [SerializeField]
@@ -19,6 +19,18 @@ public class PlayerMotor : MonoBehaviour
     [SerializeField]
     private bool spamSpaceKey = false;
 
+    [Tooltip("Slowd forward speed when coliding with particles")]
+    [SerializeField]
+    private float ForwardSpeedSlowed = 6f;
+    [Tooltip("Slowd up speed when coliding with particles, while pressing space")]
+    [SerializeField]
+    private float UpSpeedSlowed = 3f;
+    [Tooltip("Slowd up speed when coliding with particles, while spamming space")]
+    [SerializeField]
+    private float UpSpeedSpamSlowed = 6f;
+
+    private float fSpeed;
+    private float uSpeed;
     private float turnSmoothVelocity = 0.1f;
 
     private CharacterController controller;
@@ -27,6 +39,8 @@ public class PlayerMotor : MonoBehaviour
     void Awake()
     {
         controller = GetComponent<CharacterController>();
+        fSpeed = ForwardSpeed;
+        uSpeed = UpSpeed;
     }
     private void Start()
     {
@@ -79,7 +93,7 @@ public class PlayerMotor : MonoBehaviour
 
         if (direction.magnitude >= 0.1f)
         {
-            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + camera.eulerAngles.y;
+            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
             transform.rotation = Quaternion.Euler(0, angle, 0);
 
@@ -89,4 +103,11 @@ public class PlayerMotor : MonoBehaviour
     }
 
 
+    public void OnPlayerColidesWithPesticides(EventData eventData)
+    {
+        if (eventData is PlayerPesticideCollisionEventData)
+        {
+            fSpeed = ForwardSpeedSlowed;
+        }
+    }
 }
