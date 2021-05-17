@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NectarCollectStartEventData : EventData
 {
-    
-    public NectarCollectStartEventData() : base(EventType.NECTARCOLLECTSTART) { }
+    public NectarDistributor dis;
+    public NectarCollectStartEventData(NectarDistributor nec) : base(EventType.NECTARCOLLECTSTART) { dis = nec; }
 }
 

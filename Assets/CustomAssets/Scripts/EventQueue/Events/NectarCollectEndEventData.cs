@@ -5,9 +5,11 @@ using UnityEngine;
 public class NectarCollectEndEventData : EventData
 {
     public int nectarAmount;
+    
     public NectarCollectEndEventData(int amount) : base(EventType.NECTARCOLLECTEND)
     {
         nectarAmount = amount;
+        
     }
 }
 

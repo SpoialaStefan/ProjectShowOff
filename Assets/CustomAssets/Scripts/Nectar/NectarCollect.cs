@@ -18,7 +18,7 @@ public class NectarCollect : MonoBehaviour
         {
             if (other.GetComponent<NectarDistributor>())
             {
-                EventQueue.eventQueue.AddEvent(new NectarCollectStartEventData());
+                EventQueue.eventQueue.AddEvent(new NectarCollectStartEventData(other.GetComponent<NectarDistributor>()));
             }
 
             if (other.GetComponent<NectarTrunk>() && nectarAmount > 0)

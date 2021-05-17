@@ -16,9 +16,13 @@ public class NectarDistributor : MonoBehaviour
     {
         if (eventData is NectarCollectStartEventData)
         {
-            EventQueue.eventQueue.AddEvent(new NectarCollectEndEventData(nectarAmount));
-            EventQueue.eventQueue.UnSubscribe(EventType.NECTARCOLLECTSTART, OnNectarIsCollected);
-            Destroy(gameObject);
+            NectarCollectStartEventData e = eventData as NectarCollectStartEventData;
+            if (e.dis == this)
+            {
+                EventQueue.eventQueue.AddEvent(new NectarCollectEndEventData(nectarAmount));
+                EventQueue.eventQueue.UnSubscribe(EventType.NECTARCOLLECTSTART, OnNectarIsCollected);
+                Destroy(gameObject);
+            }
         }
     }
 }

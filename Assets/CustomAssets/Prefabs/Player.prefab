@@ -456,8 +456,10 @@ MonoBehaviour:
   camera: {fileID: 0}
   ForwardSpeed: 4
   UpSpeed: 3
+  UpSpeedSpam: 10
   DownSpeed: 1
   turnSmoothTime: 0.1
+  spamSpaceKey: 0
 --- !u!143 &73969371
 CharacterController:
   m_ObjectHideFlags: 0

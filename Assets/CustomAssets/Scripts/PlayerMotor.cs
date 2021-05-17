@@ -11,6 +11,8 @@ public class PlayerMotor : MonoBehaviour
     [SerializeField]
     private float UpSpeed = 3f;
     [SerializeField]
+    private float UpSpeedSpam = 6f;
+    [SerializeField]
     private float DownSpeed = 1f;
     [SerializeField]
     private float turnSmoothTime = 0.1f;
@@ -26,6 +28,10 @@ public class PlayerMotor : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
     }
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
 
     // Update is called once per frame
     void Update()
@@ -39,6 +45,10 @@ public class PlayerMotor : MonoBehaviour
         float vertical = Input.GetAxisRaw("Vertical");
         Vector3 direction = new Vector3(horizontal, 0, vertical).normalized;
 
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            spamSpaceKey = !spamSpaceKey;
+        }
 
         if (spamSpaceKey == false)
         {
@@ -53,7 +63,8 @@ public class PlayerMotor : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 //directionY += UpSpeed;
-                controller.Move(Vector3.up * UpSpeed * Time.deltaTime);
+                controller.Move(Vector3.up * UpSpeedSpam * Time.deltaTime);
+
             }
         }
 
