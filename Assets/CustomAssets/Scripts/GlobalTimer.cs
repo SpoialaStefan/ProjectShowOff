@@ -32,6 +32,7 @@ public class GlobalTimer : MonoBehaviour
     [SerializeField]
     int secondsForThirdEvent;
 
+    [SerializeField]
     float timer;
 
     float timeForFirstEvent;
@@ -46,9 +47,9 @@ public class GlobalTimer : MonoBehaviour
     {
         timer = minutes * 60 + seconds;
 
-        timeForFirstEvent = minutesForFirstEvent * 60 + secondsForFirstEvent;
-        timeForSecondEvent = minutesForSecondEvent * 60 + secondsForSecondEvent;
-        timeForThirdEvent = minutesForThirdEvent * 60 + secondsForThirdEvent;
+        timeForFirstEvent =timer-( minutesForFirstEvent * 60 + secondsForFirstEvent);
+        timeForSecondEvent = timer - (minutesForSecondEvent * 60 + secondsForSecondEvent);
+        timeForThirdEvent = timer - (minutesForThirdEvent * 60 + secondsForThirdEvent);
     }
     // Start is called before the first frame update
     void Start()
@@ -65,22 +66,28 @@ public class GlobalTimer : MonoBehaviour
 
         if (timer < timeForFirstEvent&&firstEventFired==false)
         {
+            Debug.Log("FirstEvent");
             ChangeStateEvent();
+            firstEventFired = true;
         }
         if (timer < timeForSecondEvent && secondEventFired == false)
         {
+            Debug.Log("SecondEvent");
             ChangeStateEvent();
+            secondEventFired = true;
         }
         if (timer < timeForThirdEvent && thirdEventFired == false)
         {
+            Debug.Log("ThirdtEvent");
             ChangeStateEvent();
+            thirdEventFired = true;
         }
     }
 
     private static void ChangeStateEvent()
     {
         HumanStates state = GameManager.gameManager.GetPlayerPositionZone();
-
+        Debug.Log(state);
         EventQueue.eventQueue.AddEvent(new ChangeStateEventData(state));
     }
 }
