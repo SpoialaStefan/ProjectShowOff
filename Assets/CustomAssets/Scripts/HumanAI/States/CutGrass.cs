@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-
-//[CreateAssetMenu(fileName = "MoveInGarden", menuName = "ScriptableObjects/MoveInGarden", order = 1)]
-public class MoveInGarden : BaseState
+public class CutGrass : BaseState
 {
-
     [SerializeField]
     private List<PathWay> path;
 
+    [SerializeField]
+    private GameObject pointToStartCutting;
+    [SerializeField]
+    private GameObject pointToEndCutting;
 
     private int walkPoint = -1;
     private bool walkPointSet;
@@ -20,13 +21,19 @@ public class MoveInGarden : BaseState
     private Transform target;
     [SerializeField]
     private Transform self;
+    [SerializeField]
+    private ParticleSystem particles;
+    [SerializeField]
+    private GameObject lawnmower;
+    [SerializeField]
+    private GameObject launge;
     float timer = 5;
 
     private void OnDrawGizmos()
     {
         foreach (PathWay waypoint in path)
         {
-            Gizmos.color = Color.blue;
+            Gizmos.color = Color.green;
             Gizmos.DrawSphere(waypoint.pathHolder.transform.position, .3f);
         }
 
@@ -55,7 +62,29 @@ public class MoveInGarden : BaseState
         if (distanceToLocation.magnitude < 1f)
         {
             // walkPointSet = false;
+            if (path[walkPoint].pathHolder == pointToStartCutting)
+            {
+                if (!particles.isPlaying)
+                    particles.Play();
+                if (lawnmower.activeSelf == false)
+                {
+                    lawnmower.SetActive(true);
+                }
+            }
 
+            if (path[walkPoint].pathHolder == pointToEndCutting)
+            {
+                if (particles.isPlaying)
+                    particles.Stop();
+                if (lawnmower.activeSelf == true)
+                {
+                    lawnmower.SetActive(false);
+                }
+                if (launge.activeSelf == false)
+                {
+                    launge.SetActive(true);
+                }
+            }
             StayPut();
 
         }
@@ -65,9 +94,9 @@ public class MoveInGarden : BaseState
     void StayPut()
     {
         agent.SetDestination(self.position);
+
         if (timer <= 0)
         {
-            
             walkPointSet = false;
             //timer = 5;
         }
@@ -86,5 +115,4 @@ public class MoveInGarden : BaseState
         timer = path[walkPoint].timeToStay;
         walkPointSet = true;
     }
-
 }

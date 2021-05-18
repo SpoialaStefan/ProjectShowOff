@@ -28,7 +28,7 @@ public class HumanAI : MonoBehaviour
         //states.Add(pe);
         //states.Add(stateHolder.GetComponent<SprayPesticides>());
 
-        currentState = stateHolder.GetComponent<SprayPesticides>();
+        currentState = stateHolder.GetComponent<CutGrass>();
         Debug.Log(currentState);
     }
 

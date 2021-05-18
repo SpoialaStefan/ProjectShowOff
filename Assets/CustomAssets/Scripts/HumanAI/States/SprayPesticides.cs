@@ -8,7 +8,7 @@ using UnityEngine.AI;
 public class SprayPesticides : BaseState
 {
     [SerializeField]
-    private PathWay[] path;
+    private List<PathWay> path;
 
 
     private int walkPoint = -1;
@@ -85,7 +85,7 @@ public class SprayPesticides : BaseState
     void SearchWalkPoint()
     {
         walkPoint++;
-        if (walkPoint > path.Length - 1 || walkPoint < 0) walkPoint = 0;
+        if (walkPoint > path.Count - 1 || walkPoint < 0) walkPoint = 0;
         target = path[walkPoint].pathHolder.transform;
         timer = path[walkPoint].timeToStay;
         walkPointSet = true;
