@@ -14,4 +14,11 @@ public class LocationVolume : MonoBehaviour
             Debug.Log("Hello from the volume.You are in "+zone);
         }
     }
+
+    void OnDrawGizmos()
+    {
+        // Draw a semitransparent blue cube at the transforms position
+        Gizmos.color = new Color(1, 0, 0, 1);
+        Gizmos.DrawWireCube(transform.position, transform.localScale);
+    }
 }
