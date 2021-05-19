@@ -7,7 +7,10 @@ public abstract class BaseState : MonoBehaviour
 {
     public bool isStateFinished = false;
     public HumanStates state;
-    public abstract void UpdateBehavior();
+    public virtual void UpdateBehavior()
+    {
+        Patroling();
+    }
 
     [SerializeField]
     protected List<PathWay> path;

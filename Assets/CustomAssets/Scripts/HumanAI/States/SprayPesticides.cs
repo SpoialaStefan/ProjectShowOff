@@ -4,24 +4,12 @@ using UnityEngine;
 using UnityEngine.AI;
 
 
-//[CreateAssetMenu(fileName = "SprayPesticides", menuName = "ScriptableObjects/SprayPesticides", order = 3)]
 public class SprayPesticides : BaseState
 {
-   // [SerializeField]
-    //private List<PathWay> path;
 
-
-    //private int walkPoint = -1;
-    //private bool walkPointSet;
-
-    //[SerializeField]
-    //private NavMeshAgent agent;
-    //private Transform target;
-    //[SerializeField]
-    //private Transform self;
+    [Tooltip("Add Pesticide Particle Effect attached to the Human")]
     [SerializeField]
     private ParticleSystem particles;
-    //float timer = 5;
 
     private void OnDrawGizmos()
     {
@@ -32,11 +20,6 @@ public class SprayPesticides : BaseState
         }
 
     }
-    public override void UpdateBehavior()
-    {
-        Patroling();
-    }
-
     public override void StayPut()
     {
         agent.SetDestination(self.position);
@@ -47,7 +30,6 @@ public class SprayPesticides : BaseState
             if (particles.isPlaying)
                 particles.Stop();
             walkPointSet = false;
-            //timer = 5;
         }
         else
         {

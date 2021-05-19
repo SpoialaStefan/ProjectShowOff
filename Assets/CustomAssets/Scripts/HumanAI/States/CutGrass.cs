@@ -5,29 +5,19 @@ using UnityEngine.AI;
 
 public class CutGrass : BaseState
 {
-    //[SerializeField]
-    //private List<PathWay> path;
-
     [SerializeField]
     private GameObject pointToStartCutting;
     [SerializeField]
     private GameObject pointToEndCutting;
-
-   // private int walkPoint = -1;
-    //private bool walkPointSet;
-
-    //[SerializeField]
-    //private NavMeshAgent agent;
-    //private Transform target;
-    //[SerializeField]
-    //private Transform self;
+    [Tooltip("Add Smoke Particle Effect attached to the Human")]
     [SerializeField]
     private ParticleSystem particles;
+    [Tooltip("Add LawnMower GameObject attached to the Human")]
     [SerializeField]
     private GameObject lawnmower;
+    [Tooltip("Add The GameObject that represents the launge area")]
     [SerializeField]
     private GameObject launge;
-    //float timer = 5;
 
     private void OnDrawGizmos()
     {
@@ -37,10 +27,6 @@ public class CutGrass : BaseState
             Gizmos.DrawSphere(waypoint.pathHolder.transform.position, .3f);
         }
 
-    }
-    public override void UpdateBehavior()
-    {
-        Patroling();
     }
 
     public override void HandleTargetreached()

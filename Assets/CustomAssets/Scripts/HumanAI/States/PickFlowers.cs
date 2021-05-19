@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.AI;
 
 
-//[CreateAssetMenu(fileName = "PickFlowers", menuName = "ScriptableObjects/PickFlowers", order = 2)]
 public class PickFlowers : BaseState
 {
 
@@ -23,13 +22,11 @@ public class PickFlowers : BaseState
         {
             pickUpFlower();
             walkPointSet = false;
-            //timer = 5;
         }
         else
         {
             timer -= Time.fixedDeltaTime;
         }
-        // Debug.Log(timer);
     }
 
     void pickUpFlower()
