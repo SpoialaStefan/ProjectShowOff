@@ -7,21 +7,21 @@ using UnityEngine.AI;
 //[CreateAssetMenu(fileName = "SprayPesticides", menuName = "ScriptableObjects/SprayPesticides", order = 3)]
 public class SprayPesticides : BaseState
 {
-    [SerializeField]
-    private List<PathWay> path;
+   // [SerializeField]
+    //private List<PathWay> path;
 
 
-    private int walkPoint = -1;
-    private bool walkPointSet;
+    //private int walkPoint = -1;
+    //private bool walkPointSet;
 
     //[SerializeField]
     //private NavMeshAgent agent;
-    private Transform target;
+    //private Transform target;
     //[SerializeField]
     //private Transform self;
     [SerializeField]
     private ParticleSystem particles;
-    float timer = 5;
+    //float timer = 5;
 
     private void OnDrawGizmos()
     {
@@ -37,33 +37,7 @@ public class SprayPesticides : BaseState
         Patroling();
     }
 
-
-    void Patroling()
-    {
-        // Debug.Log("patrol");
-        if (walkPointSet == false)
-        {
-            SearchWalkPoint();
-        }
-        else
-        {
-            agent.SetDestination(target.position);
-        }
-
-        Vector3 distanceToLocation = self.position - target.position;
-
-
-        if (distanceToLocation.magnitude < 1f)
-        {
-            // walkPointSet = false;
-
-            StayPut();
-
-        }
-
-    }
-
-    void StayPut()
+    public override void StayPut()
     {
         agent.SetDestination(self.position);
         if(!particles.isPlaying)
@@ -79,15 +53,6 @@ public class SprayPesticides : BaseState
         {
             timer -= Time.fixedDeltaTime;
         }
-        // Debug.Log(timer);
     }
 
-    void SearchWalkPoint()
-    {
-        walkPoint++;
-        if (walkPoint > path.Count - 1 || walkPoint < 0) walkPoint = 0;
-        target = path[walkPoint].pathHolder.transform;
-        timer = path[walkPoint].timeToStay;
-        walkPointSet = true;
-    }
 }

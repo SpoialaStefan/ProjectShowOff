@@ -5,20 +5,20 @@ using UnityEngine.AI;
 
 public class CutGrass : BaseState
 {
-    [SerializeField]
-    private List<PathWay> path;
+    //[SerializeField]
+    //private List<PathWay> path;
 
     [SerializeField]
     private GameObject pointToStartCutting;
     [SerializeField]
     private GameObject pointToEndCutting;
 
-    private int walkPoint = -1;
-    private bool walkPointSet;
+   // private int walkPoint = -1;
+    //private bool walkPointSet;
 
     //[SerializeField]
     //private NavMeshAgent agent;
-    private Transform target;
+    //private Transform target;
     //[SerializeField]
     //private Transform self;
     [SerializeField]
@@ -27,7 +27,7 @@ public class CutGrass : BaseState
     private GameObject lawnmower;
     [SerializeField]
     private GameObject launge;
-    float timer = 5;
+    //float timer = 5;
 
     private void OnDrawGizmos()
     {
@@ -43,76 +43,31 @@ public class CutGrass : BaseState
         Patroling();
     }
 
-
-    void Patroling()
+    public override void HandleTargetreached()
     {
-        // Debug.Log("patrol");
-        if (walkPointSet == false)
+        if (path[walkPoint].pathHolder == pointToStartCutting)
         {
-            SearchWalkPoint();
-        }
-        else
-        {
-            agent.SetDestination(target.position);
-        }
-
-        Vector3 distanceToLocation = self.position - target.position;
-
-
-        if (distanceToLocation.magnitude < 1f)
-        {
-            // walkPointSet = false;
-            if (path[walkPoint].pathHolder == pointToStartCutting)
+            if (!particles.isPlaying)
+                particles.Play();
+            if (lawnmower.activeSelf == false)
             {
-                if (!particles.isPlaying)
-                    particles.Play();
-                if (lawnmower.activeSelf == false)
-                {
-                    lawnmower.SetActive(true);
-                }
+                lawnmower.SetActive(true);
             }
+        }
 
-            if (path[walkPoint].pathHolder == pointToEndCutting)
+        if (path[walkPoint].pathHolder == pointToEndCutting)
+        {
+            if (particles.isPlaying)
+                particles.Stop();
+            if (lawnmower.activeSelf == true)
             {
-                if (particles.isPlaying)
-                    particles.Stop();
-                if (lawnmower.activeSelf == true)
-                {
-                    lawnmower.SetActive(false);
-                }
-                if (launge.activeSelf == false)
-                {
-                    launge.SetActive(true);
-                }
+                lawnmower.SetActive(false);
             }
-            StayPut();
-
+            if (launge.activeSelf == false)
+            {
+                launge.SetActive(true);
+            }
         }
-
-    }
-
-    void StayPut()
-    {
-        agent.SetDestination(self.position);
-
-        if (timer <= 0)
-        {
-            walkPointSet = false;
-            //timer = 5;
-        }
-        else
-        {
-            timer -= Time.fixedDeltaTime;
-        }
-        // Debug.Log(timer);
-    }
-
-    void SearchWalkPoint()
-    {
-        walkPoint++;
-        if (walkPoint > path.Count - 1 || walkPoint < 0) walkPoint = 0;
-        target = path[walkPoint].pathHolder.transform;
-        timer = path[walkPoint].timeToStay;
-        walkPointSet = true;
+        base.HandleTargetreached();
     }
 }
