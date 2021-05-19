@@ -6,6 +6,8 @@ public class NectarCollect : MonoBehaviour
 {
     [SerializeField]
     int nectarAmount = 0;
+    [SerializeField]
+    int maxNectarAmount;
 
     private void Start()
     {
@@ -18,6 +20,7 @@ public class NectarCollect : MonoBehaviour
         {
             if (other.GetComponent<NectarDistributor>())
             {
+                
                 EventQueue.eventQueue.AddEvent(new NectarCollectStartEventData(other.GetComponent<NectarDistributor>()));
             }
 
@@ -34,7 +37,14 @@ public class NectarCollect : MonoBehaviour
         if (eventData is NectarCollectEndEventData)
         {
             NectarCollectEndEventData e = eventData as NectarCollectEndEventData;
-            changeNectarAmount(e.nectarAmount);
+            if (nectarAmount+ e.nectarAmount < maxNectarAmount)
+            { 
+                changeNectarAmount(e.nectarAmount);
+            }
+            else
+            {
+                changeNectarAmount(maxNectarAmount);
+            }
         }
     }
 

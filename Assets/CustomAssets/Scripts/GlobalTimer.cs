@@ -33,7 +33,33 @@ public class GlobalTimer : MonoBehaviour
     int secondsForThirdEvent;
 
     [SerializeField]
+    List<EventStates> eventStates;
+
+    [Tooltip("Do NOT modify, preview avaliable for testing only")]
+    [SerializeField]
     float timer;
+
+    [System.Serializable]
+    public class EventStates
+    {
+        [SerializeField]
+        public HumanStates eventType;
+
+        [SerializeField]
+        public bool overridePlayerPosition;
+
+
+        [SerializeField]
+        public HumanStates otherEventType1;
+        [SerializeField]
+        public int chanceForOtherEvent1;
+
+        [SerializeField]
+        public HumanStates otherEventType2;
+        [SerializeField]
+        public int chanceForOtherEvent2;
+
+    }
 
     float timeForFirstEvent;
     float timeForSecondEvent;
@@ -67,26 +93,44 @@ public class GlobalTimer : MonoBehaviour
         if (timer < timeForFirstEvent&&firstEventFired==false)
         {
             Debug.Log("FirstEvent");
-            ChangeStateEvent();
+            ChangeStateEvent(eventStates[0]);
             firstEventFired = true;
         }
         if (timer < timeForSecondEvent && secondEventFired == false)
         {
             Debug.Log("SecondEvent");
-            ChangeStateEvent();
+            ChangeStateEvent(eventStates[1]);
             secondEventFired = true;
         }
         if (timer < timeForThirdEvent && thirdEventFired == false)
         {
             Debug.Log("ThirdtEvent");
-            ChangeStateEvent();
+            ChangeStateEvent(eventStates[2]);
             thirdEventFired = true;
         }
     }
 
-    private static void ChangeStateEvent()
+    private static void ChangeStateEvent(EventStates customState)
     {
         HumanStates state = GameManager.gameManager.GetPlayerPositionZone();
+        if (customState.overridePlayerPosition)
+        {
+            int r = Random.Range(0, 100);
+
+            if (r < customState.chanceForOtherEvent1 && customState.chanceForOtherEvent1 < 0)
+            {
+                state = customState.otherEventType1;
+            }
+            else if (r < customState.chanceForOtherEvent2 && customState.chanceForOtherEvent2 < 0)
+            {
+                state = customState.otherEventType2;
+            }
+            else
+            {
+                state = customState.eventType;
+            }
+                
+        }
         Debug.Log(state);
         EventQueue.eventQueue.AddEvent(new ChangeStateEventData(state));
     }
