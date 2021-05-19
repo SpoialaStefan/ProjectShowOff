@@ -1,18 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-#if UNITY_EDITOR
+using UnityEngine.AI;
 
-using UnityEditor;
-
-#endif
 public abstract class BaseState : MonoBehaviour
 {
     public bool isStateFinished = false;
     public HumanStates state;
     public abstract void UpdateBehavior();
+    [HideInInspector]
+    public NavMeshAgent agent;
+    [HideInInspector]
+    public Transform self;
 
 
+    private void Start()
+    {
+        agent = FindObjectOfType<NavMeshAgent>();
+        self = agent.transform;
+
+    }
     [System.Serializable]
     public class PathWay
     {

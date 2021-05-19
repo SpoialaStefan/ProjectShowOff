@@ -14,11 +14,11 @@ public class SprayPesticides : BaseState
     private int walkPoint = -1;
     private bool walkPointSet;
 
-    [SerializeField]
-    private NavMeshAgent agent;
+    //[SerializeField]
+    //private NavMeshAgent agent;
     private Transform target;
-    [SerializeField]
-    private Transform self;
+    //[SerializeField]
+    //private Transform self;
     [SerializeField]
     private ParticleSystem particles;
     float timer = 5;

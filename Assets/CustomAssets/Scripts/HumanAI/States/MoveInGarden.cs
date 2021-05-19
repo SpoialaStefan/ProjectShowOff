@@ -15,11 +15,11 @@ public class MoveInGarden : BaseState
     private int walkPoint = -1;
     private bool walkPointSet;
 
-    [SerializeField]
-    private NavMeshAgent agent;
+    //[SerializeField]
+    //private NavMeshAgent agent;
     private Transform target;
-    [SerializeField]
-    private Transform self;
+    //[SerializeField]
+    //private Transform self;
     float timer = 5;
 
     private void OnDrawGizmos()
